@@ -613,6 +613,34 @@
     });
 
     // ========================================
+    // GATE SCREEN FUNCTIONS
+    // ========================================
+    window.enterForm = function() {
+        const gate = document.getElementById('gateScreen');
+        const formContainer = document.getElementById('formContainer');
+
+        if (gate && formContainer) {
+            gate.style.opacity = '0';
+            gate.style.transform = 'scale(0.95)';
+
+            setTimeout(() => {
+                gate.style.display = 'none';
+                formContainer.style.display = 'flex';
+
+                // Pequeno delay para animar entrada do form
+                setTimeout(() => {
+                    formContainer.style.opacity = '1';
+                    formContainer.style.transform = 'translateY(0)';
+                }, 50);
+            }, 400);
+        }
+    };
+
+    window.exitForm = function() {
+        window.location.href = 'https://elaboreagencia.com.br/';
+    };
+
+    // ========================================
     // PREFERS REDUCED MOTION
     // ========================================
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {

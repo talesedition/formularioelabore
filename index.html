@@ -31,8 +31,28 @@
         <span class="progress-text" id="progressText">Pergunta 1 de 11</span>
     </div>
 
+    <!-- GATE SCREEN: Tela inicial antes do formulario -->
+    <div class="gate-screen" id="gateScreen">
+        <div class="gate-content">
+            <div class="gate-logo">
+                <img src="https://elaboreagencia.com.br/img/logo_elabore_roxo.png" alt="Elabore">
+                <span>elabore</span>
+            </div>
+            <p class="gate-tagline">Diagnostico Organico Gratuito</p>
+            <div class="gate-options">
+                <button type="button" class="gate-btn gate-btn--primary" onclick="enterForm()">
+                    <span>Continuar analise</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
+                <button type="button" class="gate-btn gate-btn--ghost" onclick="exitForm()">
+                    <span>Sair da analise</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Container principal -->
-    <main class="form-container">
+    <main class="form-container" id="formContainer" style="display:none;">
         <form id="organicForm" novalidate>
 
             <!-- PERGUNTA 1: Decisao -->

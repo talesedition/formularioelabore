@@ -871,9 +871,153 @@ input, select, textarea {
 }
 
 /* ========================================
+   GATE SCREEN (tela inicial)
+   ======================================== */
+.gate-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-base);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gate-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 32px;
+    padding: 40px 24px;
+    max-width: 420px;
+    width: 100%;
+}
+
+.gate-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.gate-logo img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 40px rgba(113, 48, 230, 0.4));
+    animation: gateLogoFloat 3s ease-in-out infinite;
+}
+
+.gate-logo span {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text-primary);
+}
+
+.gate-tagline {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--purple-light);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: -16px;
+}
+
+.gate-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.gate-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 18px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 14px;
+    transition: var(--transition-fast);
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
+
+.gate-btn--primary {
+    background: var(--purple-primary);
+    color: #fff;
+    border: 1px solid var(--purple-primary);
+    box-shadow: 0 4px 20px rgba(113, 48, 230, 0.3);
+}
+
+.gate-btn--primary:hover {
+    background: var(--purple-dark);
+    border-color: var(--purple-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(113, 48, 230, 0.4);
+}
+
+.gate-btn--primary svg {
+    transition: transform 0.2s ease;
+}
+
+.gate-btn--primary:hover svg {
+    transform: translateX(4px);
+}
+
+.gate-btn--ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-light);
+}
+
+.gate-btn--ghost:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--border-medium);
+}
+
+@keyframes gateLogoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Transicao do form container */
+#formContainer {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ========================================
    RESPONSIVE
    ======================================== */
 @media (max-width: 480px) {
+    .gate-logo img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .gate-logo span {
+        font-size: 2rem;
+    }
+
+    .gate-tagline {
+        font-size: 0.875rem;
+    }
+
+    .gate-btn {
+        padding: 16px 24px;
+        font-size: 0.9375rem;
+    }
+
     .form-container {
         padding: 130px 16px 100px;
     }
