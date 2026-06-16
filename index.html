@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elabore | Diagnostico Organico Gratuito</title>
+    <meta name="description" content="Responda algumas perguntas e receba um diagnostico estrategico gratuito da sua presenca digital.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Logo fixo no topo -->
+    <header class="form-header">
+        <a href="https://elaboreagencia.com.br/" class="form-logo" target="_blank">
+            <img src="https://elaboreagencia.com.br/img/logo_elabore_roxo.png" alt="Elabore">
+            <span>elabore</span>
+        </a>
+    </header>
+
+    <!-- Barra de progresso -->
+    <div class="progress-wrapper">
+        <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span class="progress-text" id="progressText">Pergunta 1 de 11</span>
+    </div>
+
+    <!-- Container principal -->
+    <main class="form-container">
+        <form id="organicForm" novalidate>
+
+            <!-- PERGUNTA 1: Decisao -->
+            <div class="step active" data-step="1">
+                <div class="step-badge">01</div>
+                <h2 class="step-title">Voce esta decidido(a) a investir tempo e energia para criar conteudo, implementar funis invisiveis e aplicar nossa metodologia gerando DEMANDA QUALIFICADA no organico?</h2>
+                <div class="options-grid">
+                    <label class="option-card">
+                        <input type="radio" name="decisao" value="sim" required>
+                        <div class="option-content">
+                            <span class="option-icon">✓</span>
+                            <span class="option-label">Sim, estou comprometido</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="decisao" value="nao">
+                        <div class="option-content">
+                            <span class="option-icon">✕</span>
+                            <span class="option-label">Nao, nao e para mim</span>
+                        </div>
+                    </label>
+                </div>
+                <p class="step-hint">Selecione uma opcao para continuar</p>
+            </div>
+
+            <!-- PERGUNTA 2: Disponibilidade para Call -->
+            <div class="step" data-step="2">
+                <div class="step-badge">02</div>
+                <h2 class="step-title">Voce tem disponibilidade para fazer uma Call de analise do seu Perfil nas proximas horas?</h2>
+                <div class="options-grid">
+                    <label class="option-card">
+                        <input type="radio" name="disponibilidade_call" value="sim_quero_prosseguir" required>
+                        <div class="option-content">
+                            <span class="option-icon">📞</span>
+                            <span class="option-label">Sim, quero prosseguir</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="disponibilidade_call" value="nao_nao_e_pra_mim">
+                        <div class="option-content">
+                            <span class="option-icon">🚪</span>
+                            <span class="option-label">Nao, nao e pra mim</span>
+                        </div>
+                    </label>
+                </div>
+                <p class="step-hint">Selecione uma opcao para continuar</p>
+            </div>
+
+            <!-- PERGUNTA 3: Nome completo -->
+            <div class="step" data-step="3">
+                <div class="step-badge">03</div>
+                <h2 class="step-title">Qual e o seu nome completo?</h2>
+                <div class="input-wrapper">
+                    <input type="text" name="nome_completo" id="nomeCompleto" placeholder="Digite seu nome completo" required autocomplete="name">
+                </div>
+                <p class="step-hint">Preencha seu nome para continuar</p>
+            </div>
+
+            <!-- PERGUNTA 4: Email -->
+            <div class="step" data-step="4">
+                <div class="step-badge">04</div>
+                <h2 class="step-title">Qual seu melhor e-mail?</h2>
+                <div class="input-wrapper">
+                    <input type="email" name="email" id="email" placeholder="seu@email.com" required autocomplete="email">
+                </div>
+                <p class="step-hint">Informe um e-mail valido</p>
+            </div>
+
+            <!-- PERGUNTA 5: WhatsApp -->
+            <div class="step" data-step="5">
+                <div class="step-badge">05</div>
+                <h2 class="step-title">Qual e seu WhatsApp?</h2>
+                <div class="input-wrapper">
+                    <span class="phone-prefix">🇧🇷 +55</span>
+                    <input type="tel" name="whatsapp" id="whatsapp" placeholder="(62) 99999-9999" required maxlength="15" autocomplete="tel">
+                </div>
+                <p class="step-hint">Usamos DDD (62). Digite com DDD.</p>
+            </div>
+
+            <!-- PERGUNTA 6: Instagram ou Site -->
+            <div class="step" data-step="6">
+                <div class="step-badge">06</div>
+                <h2 class="step-title">Qual e o @ do Instagram ou site da sua empresa?</h2>
+                <div class="input-wrapper">
+                    <input type="text" name="instagram_site" id="instagramSite" placeholder="@suaempresa ou www.suaempresa.com" required>
+                </div>
+                <p class="step-hint">Informe seu Instagram ou site</p>
+            </div>
+
+            <!-- PERGUNTA 7: Faturamento -->
+            <div class="step" data-step="7">
+                <div class="step-badge">07</div>
+                <h2 class="step-title">Qual seu faturamento medio mensal?</h2>
+                <div class="options-grid options-grid--vertical">
+                    <label class="option-card">
+                        <input type="radio" name="faturamento" value="ainda_nao_faturo" required>
+                        <div class="option-content">
+                            <span class="option-icon">🌱</span>
+                            <span class="option-label">Ainda nao faturo</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="faturamento" value="ate_30mil">
+                        <div class="option-content">
+                            <span class="option-icon">📈</span>
+                            <span class="option-label">Ate 30 mil por mes</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="faturamento" value="30_80mil">
+                        <div class="option-content">
+                            <span class="option-icon">🚀</span>
+                            <span class="option-label">Entre 30 e 80 mil por mes</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="faturamento" value="80_150mil">
+                        <div class="option-content">
+                            <span class="option-icon">💼</span>
+                            <span class="option-label">Entre 80 e 150 mil por mes</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="faturamento" value="150_299mil">
+                        <div class="option-content">
+                            <span class="option-icon">🏢</span>
+                            <span class="option-label">Entre 150 e 299 mil por mes</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="faturamento" value="acima_300mil">
+                        <div class="option-content">
+                            <span class="option-icon">🏆</span>
+                            <span class="option-label">Acima de 300 mil por mes</span>
+                        </div>
+                    </label>
+                </div>
+                <p class="step-hint">Selecione uma faixa de faturamento</p>
+            </div>
+
+            <!-- PERGUNTA 8: Programa desejado -->
+            <div class="step" data-step="8">
+                <div class="step-badge">08</div>
+                <h2 class="step-title">Temos programas mais acessiveis 100% focados em Criacao de conteudo, e programas mais completos, envolvendo gestao, funis e mais proximidade com o expert. O que voce esta buscando?</h2>
+                <div class="options-grid">
+                    <label class="option-card option-card--featured">
+                        <input type="radio" name="programa" value="melhor_independente_preco" required>
+                        <div class="option-content">
+                            <span class="option-icon">⭐</span>
+                            <span class="option-label">Quero o melhor independente do preco</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="programa" value="mais_acessivel_conteudo">
+                        <div class="option-content">
+                            <span class="option-icon">🎯</span>
+                            <span class="option-label">Quero algo mais acessivel focado so em conteudo</span>
+                        </div>
+                    </label>
+                </div>
+                <p class="step-hint">Escolha o programa que melhor se encaixa</p>
+            </div>
+
+            <!-- PERGUNTA 9: Inclinacao a comecar -->
+            <div class="step" data-step="9">
+                <div class="step-badge">09</div>
+                <h2 class="step-title">O quao inclinado(a) voce esta a comecar algo conosco AGORA?</h2>
+                <div class="options-grid options-grid--vertical">
+                    <label class="option-card option-card--featured">
+                        <input type="radio" name="inclinacao" value="investir_tempo_dinheiro_agora" required>
+                        <div class="option-content">
+                            <span class="option-icon">🔥</span>
+                            <span class="option-label">Quero investir tempo e dinheiro para comecar agora</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="inclinacao" value="investir_tempo_dinheiro_impede">
+                        <div class="option-content">
+                            <span class="option-icon">⏳</span>
+                            <span class="option-label">Quero investir tempo, mas dinheiro pode me impedir de comecar agora</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="inclinacao" value="duvidas_conhecer_melhor">
+                        <div class="option-content">
+                            <span class="option-icon">❓</span>
+                            <span class="option-label">Ainda tenho duvidas, quero conhecer melhor</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="inclinacao" value="nao_quero_comecar">
+                        <div class="option-content">
+                            <span class="option-icon">🚫</span>
+                            <span class="option-label">Nao quero comecar agora</span>
+                        </div>
+                    </label>
+                </div>
+                <p class="step-hint">Selecione sua disposicao atual</p>
+            </div>
+
+            <!-- PERGUNTA 10: Consentimento LGPD -->
+            <div class="step" data-step="10">
+                <div class="step-badge">10</div>
+                <h2 class="step-title">Autorizo o contato via WhatsApp e e-mail para receber meu diagnostico e proposta personalizada.</h2>
+                <div class="options-grid">
+                    <label class="option-card option-card--lgpd">
+                        <input type="checkbox" name="consentimento_lgpd" id="consentimentoLgpd" value="sim" required>
+                        <div class="option-content">
+                            <span class="option-icon">🛡️</span>
+                            <span class="option-label">Sim, autorizo o contato e aceito a <a href="#" onclick="showPrivacyModal(event); return false;">Politica de Privacidade</a></span>
+                        </div>
+                    </label>
+                </div>
+                <p class="step-hint">Aceite os termos para finalizar</p>
+            </div>
+
+            <!-- PERGUNTA 11: Tela de conclusao -->
+            <div class="step" data-step="11">
+                <div class="step-badge step-badge--final">✓</div>
+                <h2 class="step-title">Concluido! Aguarde o contato da minha equipe.</h2>
+                <p class="step-subtitle">Enquanto aguarda, assista ao Estudo de Caso que eu gravei com um aluno que bateu R$150k de faturamento mensal em 2025 com a minha ajuda.</p>
+
+                <div class="video-cta">
+                    <a href="https://www.youtube.com/watch?v=SEU_VIDEO_AQUI" target="_blank" class="video-card" id="videoLink">
+                        <div class="video-thumbnail">
+                            <div class="video-play">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                            <div class="video-overlay">
+                                <span class="video-duration">40 min</span>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-tag">Estudo de Caso</span>
+                            <h3 class="video-title">Como um aluno faturou R$150k/mes com estrategia organica</h3>
+                            <span class="video-author">Rodrigo e aluno</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="success-message">
+                    <div class="success-icon">📨</div>
+                    <p class="success-text">Nossa equipe analisara seu perfil e entrara em contato em ate <strong>4 horas uteis</strong> pelo WhatsApp e e-mail informados.</p>
+                    <p class="success-note">Fique de olho no seu celular!</p>
+                </div>
+
+                <div class="success-actions">
+                    <a href="https://elaboreagencia.com.br/" class="btn btn-ghost">Voltar para o site</a>
+                </div>
+            </div>
+
+        </form>
+
+        <!-- Navegacao -->
+        <div class="form-nav" id="formNav">
+            <button type="button" class="nav-btn nav-btn--prev" id="btnPrev" onclick="prevStep()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                Voltar
+            </button>
+            <button type="button" class="nav-btn nav-btn--next" id="btnNext" onclick="nextStep()">
+                Continuar
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <button type="button" class="nav-btn nav-btn--submit" id="btnSubmit" onclick="submitForm()" style="display:none;">
+                Enviar respostas
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+        </div>
+    </main>
+
+    <!-- Modal Politica de Privacidade -->
+    <div class="modal-overlay" id="privacyModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closePrivacyModal()" aria-label="Fechar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="modal-header">
+                <h3>Politica de Privacidade</h3>
+            </div>
+            <div class="modal-body">
+                <p><strong>Elabore - Grupo Elabore</strong><br>CNPJ: 20.993.452/0001-29<br>Polo Tecnologico de Saquarema, Saquarema/RJ</p>
+                <h4>1. Coleta de Dados</h4>
+                <p>Coletamos nome, e-mail, telefone, nome da empresa, faturamento e segmento para fins de contato comercial e elaboracao de propostas personalizadas.</p>
+                <h4>2. Uso das Informacoes</h4>
+                <p>Seus dados sao utilizados exclusivamente para comunicacao sobre nossos servicos, envio de diagnosticos e propostas comerciais.</p>
+                <h4>3. Compartilhamento</h4>
+                <p>Nao vendemos seus dados. Compartilhamos apenas com ferramentas essenciais de marketing e vendas sob contrato de confidencialidade.</p>
+                <h4>4. Seus Direitos (LGPD)</h4>
+                <p>Voce pode solicitar acesso, correcao ou exclusao de seus dados a qualquer momento pelo e-mail contato@elabore.digital ou WhatsApp (22) 98873-0115.</p>
+                <h4>5. Cookies e Rastreamento</h4>
+                <p>Utilizamos Meta Pixel, Google Analytics e Google Tag Manager para melhorar a experiencia e medir resultados de campanhas.</p>
+                <h4>6. Retencao</h4>
+                <p>Mantemos seus dados pelo prazo de 2 anos ou ate solicitacao de exclusao.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de erro -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
