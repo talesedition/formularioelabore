@@ -379,58 +379,39 @@
         });
     }
 
+    // ========================================
+    // CORRECAO DEFINITIVA DOS CARDS
+    // ========================================
     function initOptionCards() {
-        document.querySelectorAll('.option-card').forEach(card => {
+        document.querySelectorAll('.option-card').forEach(function(card) {
+
+            // Handler unificado para clique no card
             card.addEventListener('click', function(e) {
-                // Nao propaga se clicou em link
+                // Ignora cliques em links
                 if (e.target.tagName === 'A') return;
 
                 const input = this.querySelector('input');
                 if (!input) return;
 
-                // Se clicou no input diretamente, deixa o input lidar sozinho
-                // e so atualiza o visual e salva
-                if (e.target === input) {
-                    // O input ja vai mudar de estado naturalmente
-                    // Precisamos esperar o proximo tick para o DOM atualizar
-                    setTimeout(function() {
-                        saveStepData(currentStep);
-                        // Atualiza o hint removendo erro
-                        const step = document.querySelector('.step[data-step="' + currentStep + '"]');
-                        if (step) {
-                            const hint = step.querySelector('.step-hint');
-                            if (hint) {
-                                hint.textContent = getDefaultHint(currentStep);
-                                hint.classList.remove('error');
-                            }
-                        }
-                    }, 0);
-                    return;
-                }
+                // COM pointer-events: none no CSS, o input NUNCA recebe clique direto.
+                // Entao todo clique aqui eh no card. Basta toggle o input e pronto.
 
-                // Clique no card (nao no input)
                 if (input.type === 'checkbox') {
                     input.checked = !input.checked;
-                } else {
+                } else if (input.type === 'radio') {
                     input.checked = true;
                 }
 
+                // Dispara change para CSS atualizar (borda roxa, etc)
                 input.dispatchEvent(new Event('change'));
 
-                // Salva imediatamente e limpa erro
+                // Salva dados e limpa erro imediatamente
                 saveStepData(currentStep);
-                const step = document.querySelector('.step[data-step="' + currentStep + '"]');
-                if (step) {
-                    const hint = step.querySelector('.step-hint');
-                    if (hint) {
-                        hint.textContent = getDefaultHint(currentStep);
-                        hint.classList.remove('error');
-                    }
-                }
+                clearStepError(currentStep);
 
                 // Auto-avanca em radio buttons
                 if (input.type === 'radio') {
-                    setTimeout(() => {
+                    setTimeout(function() {
                         if (currentStep === 12) {
                             submitForm();
                         } else {
@@ -440,23 +421,18 @@
                 }
             });
 
+            // Teclado: Enter/Space no card
             card.setAttribute('tabindex', '0');
             card.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    // Simula clique no card (nao no input)
-                    const clickEvent = new MouseEvent('click', {
-                        bubbles: true,
-                        cancelable: true,
-                        target: this
-                    });
-                    this.dispatchEvent(clickEvent);
+                    this.click();
                 }
             });
         });
 
-        // Remove erro ao interagir com inputs de texto
-        document.querySelectorAll('.step input[type="text"], .step input[type="tel"]').forEach(input => {
+        // Remove erro ao digitar em inputs de texto
+        document.querySelectorAll('.step input[type="text"], .step input[type="tel"]').forEach(function(input) {
             input.addEventListener('input', function() {
                 this.classList.remove('error');
                 const step = this.closest('.step');
@@ -468,6 +444,16 @@
                 }
             });
         });
+    }
+
+    function clearStepError(stepNum) {
+        const step = document.querySelector('.step[data-step="' + stepNum + '"]');
+        if (!step) return;
+        const hint = step.querySelector('.step-hint');
+        if (hint) {
+            hint.textContent = getDefaultHint(stepNum);
+            hint.classList.remove('error');
+        }
     }
 
     window.showPrivacyModal = function(e) {
