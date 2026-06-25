@@ -237,17 +237,13 @@
         }
     }
 
-    // ========================================
-    // CORRECAO PRINCIPAL AQUI
-    // ========================================
     function saveStepData(stepNum) {
         const step = document.querySelector('.step[data-step="' + stepNum + '"]');
         if (!step) return;
 
         const inputs = step.querySelectorAll('input[name], select[name], textarea[name]');
-        
-        // Para checkboxes: limpa o array deste step antes de repopular
-        // para evitar acumulo de lixo quando o usuario volta e muda a resposta
+
+        // Limpa arrays de checkbox deste step antes de repopular
         inputs.forEach(input => {
             if (input.type === 'checkbox') {
                 formData[input.name] = [];
@@ -291,7 +287,6 @@
             userAgent: navigator.userAgent
         };
 
-        // DEBUG: veja no console do navegador (F12) se todos os dados estao aqui
         console.log('Payload enviado:', payload);
 
         btnSubmit.disabled = true;
@@ -387,14 +382,33 @@
     function initOptionCards() {
         document.querySelectorAll('.option-card').forEach(card => {
             card.addEventListener('click', function(e) {
+                // Nao propaga se clicou em link
                 if (e.target.tagName === 'A') return;
 
                 const input = this.querySelector('input');
                 if (!input) return;
 
-                // Se o clique foi diretamente no input, nao faz nada (evita duplo toggle)
-                if (e.target === input) return;
+                // Se clicou no input diretamente, deixa o input lidar sozinho
+                // e so atualiza o visual e salva
+                if (e.target === input) {
+                    // O input ja vai mudar de estado naturalmente
+                    // Precisamos esperar o proximo tick para o DOM atualizar
+                    setTimeout(function() {
+                        saveStepData(currentStep);
+                        // Atualiza o hint removendo erro
+                        const step = document.querySelector('.step[data-step="' + currentStep + '"]');
+                        if (step) {
+                            const hint = step.querySelector('.step-hint');
+                            if (hint) {
+                                hint.textContent = getDefaultHint(currentStep);
+                                hint.classList.remove('error');
+                            }
+                        }
+                    }, 0);
+                    return;
+                }
 
+                // Clique no card (nao no input)
                 if (input.type === 'checkbox') {
                     input.checked = !input.checked;
                 } else {
@@ -403,6 +417,18 @@
 
                 input.dispatchEvent(new Event('change'));
 
+                // Salva imediatamente e limpa erro
+                saveStepData(currentStep);
+                const step = document.querySelector('.step[data-step="' + currentStep + '"]');
+                if (step) {
+                    const hint = step.querySelector('.step-hint');
+                    if (hint) {
+                        hint.textContent = getDefaultHint(currentStep);
+                        hint.classList.remove('error');
+                    }
+                }
+
+                // Auto-avanca em radio buttons
                 if (input.type === 'radio') {
                     setTimeout(() => {
                         if (currentStep === 12) {
@@ -418,12 +444,19 @@
             card.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    this.click();
+                    // Simula clique no card (nao no input)
+                    const clickEvent = new MouseEvent('click', {
+                        bubbles: true,
+                        cancelable: true,
+                        target: this
+                    });
+                    this.dispatchEvent(clickEvent);
                 }
             });
         });
 
-        document.querySelectorAll('.step input').forEach(input => {
+        // Remove erro ao interagir com inputs de texto
+        document.querySelectorAll('.step input[type="text"], .step input[type="tel"]').forEach(input => {
             input.addEventListener('input', function() {
                 this.classList.remove('error');
                 const step = this.closest('.step');
