@@ -10,8 +10,8 @@
     // ========================================
     // CONFIGURACAO
     // ========================================
-    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxVPvUkVBKRreNagrk6Wur7O5_WuRY7PVaRih6hgjftuKZubxx11-d46Htsx3dZbjEANw/exec';
-    const TOTAL_STEPS = 11;
+    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwX2l3waQQf82VKiTVQ9AO7_ePqr_B86UIp6xdiQD4kJlxnYeNnLlnBRFfgamDRRHSu/exec';
+    const TOTAL_STEPS = 12; // 12 perguntas, step 13 e a tela final
     const VIDEO_URL = 'https://www.youtube.com/watch?v=SEU_VIDEO_AQUI';
 
     // ========================================
@@ -55,20 +55,20 @@
     function updateProgress() {
         const percentage = ((currentStep - 1) / (TOTAL_STEPS - 1)) * 100;
         progressFill.style.width = percentage + '%';
-        progressText.textContent = 'Pergunta ' + currentStep + ' de ' + TOTAL_STEPS;
+        if (currentStep <= TOTAL_STEPS) {
+            progressText.textContent = 'Pergunta ' + currentStep + ' de ' + TOTAL_STEPS;
+        } else {
+            progressText.textContent = 'Concluido!';
+            progressFill.style.width = '100%';
+        }
     }
 
     // ========================================
     // NAVEGACAO
     // ========================================
     function initNavigation() {
-        // Botao anterior
         btnPrev.addEventListener('click', prevStep);
-
-        // Botao proximo
         btnNext.addEventListener('click', nextStep);
-
-        // Botao enviar
         btnSubmit.addEventListener('click', submitForm);
     }
 
@@ -83,39 +83,8 @@
         let isValid = true;
         let errorMsg = '';
 
-        // Step 1: Decisao (radio)
+        // Step 1: Nome completo (text)
         if (stepNum === 1) {
-            const selected = step.querySelector('input[name="decisao"]:checked');
-            if (!selected) {
-                isValid = false;
-                errorMsg = 'Selecione uma opcao para continuar';
-            } else if (selected.value === 'nao') {
-                // Se respondeu "Nao", redireciona ou mostra mensagem
-                showToast('Entendido. Obrigado pelo seu tempo!');
-                setTimeout(() => {
-                    window.location.href = 'https://elaboreagencia.com.br/';
-                }, 2000);
-                return false;
-            }
-        }
-
-        // Step 2: Disponibilidade (radio)
-        if (stepNum === 2) {
-            const selected = step.querySelector('input[name="disponibilidade_call"]:checked');
-            if (!selected) {
-                isValid = false;
-                errorMsg = 'Selecione uma opcao para continuar';
-            } else if (selected.value === 'nao_nao_e_pra_mim') {
-                showToast('Sem problemas! Agradecemos sua participacao.');
-                setTimeout(() => {
-                    window.location.href = 'https://elaboreagencia.com.br/';
-                }, 2000);
-                return false;
-            }
-        }
-
-        // Step 3: Nome (text)
-        if (stepNum === 3) {
             const input = step.querySelector('input[name="nome_completo"]');
             const value = input.value.trim();
             if (!value || value.length < 3) {
@@ -127,22 +96,21 @@
             }
         }
 
-        // Step 4: Email (email)
-        if (stepNum === 4) {
-            const input = step.querySelector('input[name="email"]');
+        // Step 2: Instagram (text)
+        else if (stepNum === 2) {
+            const input = step.querySelector('input[name="instagram"]');
             const value = input.value.trim();
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!value || !emailRegex.test(value)) {
+            if (!value || value.length < 2) {
                 isValid = false;
-                errorMsg = 'Digite um e-mail valido';
+                errorMsg = 'Informe o @ do Instagram da sua empresa';
                 input.classList.add('error');
             } else {
                 input.classList.remove('error');
             }
         }
 
-        // Step 5: WhatsApp (tel)
-        if (stepNum === 5) {
+        // Step 3: WhatsApp (tel)
+        else if (stepNum === 3) {
             const input = step.querySelector('input[name="whatsapp"]');
             const value = input.value.replace(/\D/g, '');
             if (value.length < 10) {
@@ -154,52 +122,21 @@
             }
         }
 
-        // Step 6: Instagram/Site (text)
-        if (stepNum === 6) {
-            const input = step.querySelector('input[name="instagram_site"]');
-            const value = input.value.trim();
-            if (!value || value.length < 3) {
+        // Steps 4 a 9: Checkbox (multipla escolha)
+        else if (stepNum >= 4 && stepNum <= 9) {
+            const checkboxes = step.querySelectorAll('input[type="checkbox"]:checked');
+            if (checkboxes.length === 0) {
                 isValid = false;
-                errorMsg = 'Informe seu Instagram ou site';
-                input.classList.add('error');
-            } else {
-                input.classList.remove('error');
+                errorMsg = 'Selecione uma ou mais opcoes';
             }
         }
 
-        // Step 7: Faturamento (radio)
-        if (stepNum === 7) {
-            const selected = step.querySelector('input[name="faturamento"]:checked');
+        // Steps 10 a 12: Radio (escolha unica)
+        else if (stepNum >= 10 && stepNum <= 12) {
+            const selected = step.querySelector('input[type="radio"]:checked');
             if (!selected) {
                 isValid = false;
-                errorMsg = 'Selecione uma faixa de faturamento';
-            }
-        }
-
-        // Step 8: Programa (radio)
-        if (stepNum === 8) {
-            const selected = step.querySelector('input[name="programa"]:checked');
-            if (!selected) {
-                isValid = false;
-                errorMsg = 'Escolha o programa que melhor se encaixa';
-            }
-        }
-
-        // Step 9: Inclinacao (radio)
-        if (stepNum === 9) {
-            const selected = step.querySelector('input[name="inclinacao"]:checked');
-            if (!selected) {
-                isValid = false;
-                errorMsg = 'Selecione sua disposicao atual';
-            }
-        }
-
-        // Step 10: Consentimento (checkbox)
-        if (stepNum === 10) {
-            const checkbox = step.querySelector('input[name="consentimento_lgpd"]');
-            if (!checkbox.checked) {
-                isValid = false;
-                errorMsg = 'Aceite os termos para finalizar';
+                errorMsg = 'Selecione uma opcao para continuar';
             }
         }
 
@@ -219,17 +156,19 @@
 
     function getDefaultHint(stepNum) {
         const hints = {
-            1: 'Selecione uma opcao para continuar',
-            2: 'Selecione uma opcao para continuar',
-            3: 'Preencha seu nome para continuar',
-            4: 'Informe um e-mail valido',
-            5: 'Usamos DDD (62). Digite com DDD.',
-            6: 'Informe seu Instagram ou site',
-            7: 'Selecione uma faixa de faturamento',
-            8: 'Escolha o programa que melhor se encaixa',
-            9: 'Selecione sua disposicao atual',
-            10: 'Aceite os termos para finalizar',
-            11: 'Obrigado! Aguarde nosso contato.'
+            1: 'Preencha seu nome para continuar',
+            2: 'Informe o @ do Instagram da sua empresa',
+            3: 'Digite com DDD',
+            4: 'Selecione uma ou mais opcoes',
+            5: 'Selecione uma ou mais opcoes',
+            6: 'Selecione uma ou mais opcoes',
+            7: 'Selecione uma ou mais opcoes',
+            8: 'Selecione uma ou mais opcoes',
+            9: 'Selecione uma ou mais opcoes',
+            10: 'Selecione uma opcao para continuar',
+            11: 'Selecione uma opcao para continuar',
+            12: 'Selecione uma opcao para continuar',
+            13: 'Obrigado! Aguarde nosso contato.'
         };
         return hints[stepNum] || '';
     }
@@ -241,7 +180,6 @@
         if (isAnimating) return;
 
         if (!validateStep(currentStep)) {
-            // Shake animation no step atual
             const currentStepEl = document.querySelector('.step[data-step="' + currentStep + '"]');
             if (currentStepEl) {
                 currentStepEl.classList.add('shake');
@@ -277,7 +215,7 @@
 
                     // Focus no primeiro input do novo step
                     const firstInput = nextEl.querySelector('input, select, textarea');
-                    if (firstInput && currentStep !== 11) {
+                    if (firstInput && currentStep !== 13) {
                         setTimeout(() => firstInput.focus(), 300);
                     }
                 }, 500);
@@ -328,10 +266,11 @@
         }
 
         // Botao proximo / enviar
-        if (currentStep === 10) {
+        if (currentStep === 12) {
+            // Ultima pergunta: mostra botao Enviar
             btnNext.style.display = 'none';
             btnSubmit.style.display = 'inline-flex';
-        } else if (currentStep === 11) {
+        } else if (currentStep === 13) {
             // Tela final: esconde navegacao
             formNav.style.display = 'none';
             progressText.textContent = 'Concluido!';
@@ -341,8 +280,8 @@
             btnSubmit.style.display = 'none';
         }
 
-        // Atualiza texto do botao next no ultimo step antes do submit
-        if (currentStep === 9) {
+        // Atualiza texto do botao next no penultimo step
+        if (currentStep === 11) {
             btnNext.innerHTML = 'Quase la <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';
         } else {
             btnNext.innerHTML = 'Continuar <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';
@@ -358,9 +297,17 @@
 
         const inputs = step.querySelectorAll('input[name], select[name], textarea[name]');
         inputs.forEach(input => {
-            if (input.type === 'radio' || input.type === 'checkbox') {
+            if (input.type === 'radio') {
                 if (input.checked) {
                     formData[input.name] = input.value;
+                }
+            } else if (input.type === 'checkbox') {
+                // Para checkboxes, acumula valores em array
+                if (!formData[input.name]) formData[input.name] = [];
+                if (input.checked) {
+                    if (!formData[input.name].includes(input.value)) {
+                        formData[input.name].push(input.value);
+                    }
                 }
             } else {
                 formData[input.name] = input.value.trim();
@@ -402,11 +349,11 @@
         // Envia para Google Sheets
         sendToGoogleSheets(payload);
 
-        // Avanca para tela de sucesso (step 11)
+        // Avanca para tela de sucesso (step 13)
         isAnimating = true;
 
         const currentEl = document.querySelector('.step[data-step="' + currentStep + '"]');
-        const successEl = document.querySelector('.step[data-step="11"]');
+        const successEl = document.querySelector('.step[data-step="13"]');
 
         if (currentEl && successEl) {
             currentEl.classList.add('slide-out-left');
@@ -415,7 +362,7 @@
                 currentEl.classList.remove('active', 'slide-out-left');
                 successEl.classList.add('active', 'slide-in-right');
 
-                currentStep = 11;
+                currentStep = 13;
                 updateUI();
 
                 setTimeout(() => {
@@ -448,7 +395,6 @@
         })
         .catch(error => {
             console.error('Erro ao enviar:', error);
-            // Mesmo com erro, continua para tela de sucesso
         });
     }
 
@@ -478,13 +424,6 @@
 
             e.target.value = value;
         });
-
-        // Preenche DDD 62 automaticamente se campo vazio
-        phoneInput.addEventListener('focus', function() {
-            if (!this.value) {
-                this.value = '(62) ';
-            }
-        });
     }
 
     // ========================================
@@ -492,21 +431,16 @@
     // ========================================
     function initKeyboardNav() {
         document.addEventListener('keydown', function(e) {
-            // Enter avanca (exceto em checkbox LGPD)
-            if (e.key === 'Enter' && currentStep !== 10 && currentStep !== 11) {
+            // Enter avanca (exceto em checkboxes e na tela final)
+            if (e.key === 'Enter' && currentStep !== 13) {
+                const activeEl = document.activeElement;
+                // Nao intercepta Enter em textareas
+                if (activeEl && activeEl.tagName === 'TEXTAREA') return;
                 e.preventDefault();
-                nextStep();
-            }
-
-            // Seta direita / espaco avanca em cards de opcao
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                const activeStep = document.querySelector('.step.active');
-                if (activeStep) {
-                    const focused = document.activeElement;
-                    if (focused && focused.classList.contains('option-card')) {
-                        e.preventDefault();
-                        nextStep();
-                    }
+                if (currentStep === 12) {
+                    submitForm();
+                } else {
+                    nextStep();
                 }
             }
 
@@ -538,9 +472,15 @@
                     // Dispara change para atualizar estilos
                     input.dispatchEvent(new Event('change'));
 
-                    // Auto-avanca apos 400ms em radio buttons (exceto LGPD)
-                    if (input.type === 'radio' && input.name !== 'consentimento_lgpd') {
-                        setTimeout(() => nextStep(), 400);
+                    // Auto-avanca apos 400ms em radio buttons
+                    if (input.type === 'radio') {
+                        setTimeout(() => {
+                            if (currentStep === 12) {
+                                submitForm();
+                            } else {
+                                nextStep();
+                            }
+                        }, 400);
                     }
                 }
             });
@@ -627,7 +567,6 @@
                 gate.style.display = 'none';
                 formContainer.style.display = 'flex';
 
-                // Pequeno delay para animar entrada do form
                 setTimeout(() => {
                     formContainer.style.opacity = '1';
                     formContainer.style.transform = 'translateY(0)';
