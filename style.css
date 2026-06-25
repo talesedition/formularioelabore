@@ -257,15 +257,19 @@ input, select, textarea { font-family: inherit; font-size: inherit; color: inher
     margin: 0;
 }
 
-/* Input visivelmente escondido, MAS clicavel via label */
+/* Input escondido — o label aciona via comportamento nativo HTML */
 .option-card input {
     position: absolute;
-    top: 0; left: 0;
     opacity: 0;
     width: 1px;
     height: 1px;
-    /* NAO usar pointer-events: none aqui! */
-    /* O input precisa ser focavel para acessibilidade */
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+    pointer-events: none;
 }
 
 .option-content {
