@@ -4,9 +4,6 @@
    Barra de progresso roxa
    ======================================== */
 
-/* ========================================
-   VARIABLES
-   ======================================== */
 :root {
     --purple-primary: #7130e6;
     --purple-light: #9f7aea;
@@ -32,9 +29,6 @@
     --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ========================================
-   RESET & BASE
-   ======================================== */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -58,38 +52,14 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-button {
-    font-family: inherit;
-    cursor: pointer;
-    border: none;
-    background: none;
-}
-
-input, select, textarea {
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
-}
-
-/* ========================================
-   HEADER / LOGO
-   ======================================== */
 .form-header {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 100;
     padding: 20px 24px;
     display: flex;
@@ -106,28 +76,13 @@ input, select, textarea {
     color: var(--text-primary);
     transition: var(--transition-fast);
 }
+.form-logo:hover { opacity: 0.8; }
+.form-logo img { width: 40px; height: 40px; object-fit: contain; }
+.form-logo span { letter-spacing: -0.5px; }
 
-.form-logo:hover {
-    opacity: 0.8;
-}
-
-.form-logo img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-}
-
-.form-logo span {
-    letter-spacing: -0.5px;
-}
-
-/* ========================================
-   BARRA DE PROGRESSO
-   ======================================== */
 .progress-wrapper {
     position: fixed;
-    top: 80px;
-    left: 50%;
+    top: 80px; left: 50%;
     transform: translateX(-50%);
     z-index: 90;
     width: 100%;
@@ -140,8 +95,7 @@ input, select, textarea {
 }
 
 .progress-track {
-    width: 100%;
-    height: 6px;
+    width: 100%; height: 6px;
     background: var(--bg-elevated);
     border-radius: 100px;
     overflow: hidden;
@@ -149,8 +103,7 @@ input, select, textarea {
 }
 
 .progress-fill {
-    height: 100%;
-    width: 0%;
+    height: 100%; width: 0%;
     background: linear-gradient(90deg, var(--purple-primary) 0%, var(--purple-light) 100%);
     border-radius: 100px;
     transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -161,11 +114,9 @@ input, select, textarea {
 .progress-fill::after {
     content: '';
     position: absolute;
-    right: 0;
-    top: 50%;
+    right: 0; top: 50%;
     transform: translateY(-50%);
-    width: 12px;
-    height: 12px;
+    width: 12px; height: 12px;
     background: var(--purple-light);
     border-radius: 50%;
     box-shadow: 0 0 15px var(--purple-glow), 0 0 30px var(--purple-glow);
@@ -173,9 +124,7 @@ input, select, textarea {
     transition: opacity 0.3s ease;
 }
 
-.progress-fill[style*="%"]::after {
-    opacity: 1;
-}
+.progress-fill[style*="%"]::after { opacity: 1; }
 
 .progress-text {
     font-size: 0.75rem;
@@ -185,9 +134,6 @@ input, select, textarea {
     letter-spacing: 0.08em;
 }
 
-/* ========================================
-   CONTAINER PRINCIPAL
-   ======================================== */
 .form-container {
     max-width: 680px;
     margin: 0 auto;
@@ -198,9 +144,6 @@ input, select, textarea {
     justify-content: center;
 }
 
-/* ========================================
-   STEPS / PERGUNTAS
-   ======================================== */
 .step {
     display: none;
     opacity: 0;
@@ -238,13 +181,11 @@ input, select, textarea {
     to { opacity: 1; transform: translateX(0); }
 }
 
-/* Badge numerico */
 .step-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 40px; height: 40px;
     background: rgba(113, 48, 230, 0.15);
     border: 1px solid rgba(113, 48, 230, 0.3);
     border-radius: 12px;
@@ -261,7 +202,6 @@ input, select, textarea {
     font-size: 1.25rem;
 }
 
-/* Titulo da pergunta */
 .step-title {
     font-size: clamp(1.375rem, 4vw, 1.75rem);
     font-weight: 700;
@@ -278,7 +218,6 @@ input, select, textarea {
     margin-bottom: 28px;
 }
 
-/* Hint de validacao */
 .step-hint {
     font-size: 0.8125rem;
     color: var(--text-muted);
@@ -292,9 +231,6 @@ input, select, textarea {
     font-weight: 500;
 }
 
-/* ========================================
-   OPTIONS GRID
-   ======================================== */
 .options-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -311,20 +247,25 @@ input, select, textarea {
     }
 }
 
-/* Option Card */
+/* ========================================
+   OPTION CARD - ABORDAGEM NATIVA VIA LABEL
+   ======================================== */
 .option-card {
     position: relative;
     cursor: pointer;
     display: block;
+    margin: 0;
 }
 
-/* CORRECAO: input nao recebe clique direto */
+/* Input visivelmente escondido, MAS clicavel via label */
 .option-card input {
     position: absolute;
+    top: 0; left: 0;
     opacity: 0;
-    width: 0;
-    height: 0;
-    pointer-events: none;
+    width: 1px;
+    height: 1px;
+    /* NAO usar pointer-events: none aqui! */
+    /* O input precisa ser focavel para acessibilidade */
 }
 
 .option-content {
@@ -355,15 +296,14 @@ input, select, textarea {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
-.option-card input:checked + .option-content,
-.option-card input:focus + .option-content {
+/* Estado selecionado - funciona nativamente via :checked */
+.option-card input:checked + .option-content {
     border-color: var(--purple-primary);
     background: rgba(113, 48, 230, 0.08);
     box-shadow: 0 0 0 1px var(--purple-primary), 0 8px 32px rgba(113, 48, 230, 0.15);
 }
 
-.option-card input:checked + .option-content::before,
-.option-card input:focus + .option-content::before {
+.option-card input:checked + .option-content::before {
     opacity: 1;
 }
 
@@ -373,10 +313,14 @@ input, select, textarea {
     transform: scale(1.1);
 }
 
-/* Icon */
+/* Focus para acessibilidade */
+.option-card input:focus + .option-content {
+    border-color: var(--purple-primary);
+    box-shadow: 0 0 0 3px rgba(113, 48, 230, 0.2);
+}
+
 .option-icon {
-    width: 40px;
-    height: 40px;
+    width: 40px; height: 40px;
     min-width: 40px;
     display: flex;
     align-items: center;
@@ -389,7 +333,6 @@ input, select, textarea {
     z-index: 1;
 }
 
-/* Label */
 .option-label {
     font-size: 0.9375rem;
     font-weight: 500;
@@ -405,11 +348,8 @@ input, select, textarea {
     transition: color 0.2s ease;
 }
 
-.option-label a:hover {
-    color: var(--purple-primary);
-}
+.option-label a:hover { color: var(--purple-primary); }
 
-/* Card featured (destacado) */
 .option-card--featured .option-content {
     border-color: rgba(113, 48, 230, 0.2);
 }
@@ -418,19 +358,6 @@ input, select, textarea {
     border-color: var(--purple-primary);
 }
 
-/* Card LGPD */
-.option-card--lgpd .option-content {
-    padding: 24px;
-}
-
-.option-card--lgpd .option-icon {
-    background: rgba(113, 48, 230, 0.15);
-    color: var(--purple-light);
-}
-
-/* ========================================
-   INPUT WRAPPER
-   ======================================== */
 .input-wrapper {
     position: relative;
     display: flex;
@@ -466,7 +393,6 @@ input, select, textarea {
     box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
 
-/* Phone prefix */
 .phone-prefix {
     position: absolute;
     left: 20px;
@@ -480,14 +406,9 @@ input, select, textarea {
     padding-left: 64px;
 }
 
-/* ========================================
-   NAVEGACAO
-   ======================================== */
 .form-nav {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     z-index: 100;
     display: flex;
     justify-content: space-between;
@@ -546,9 +467,7 @@ input, select, textarea {
 }
 
 .nav-btn--next:active,
-.nav-btn--submit:active {
-    transform: translateY(0);
-}
+.nav-btn--submit:active { transform: translateY(0); }
 
 .nav-btn--next:disabled {
     opacity: 0.5;
@@ -557,17 +476,9 @@ input, select, textarea {
     box-shadow: none;
 }
 
-.nav-btn svg {
-    transition: transform 0.2s ease;
-}
+.nav-btn svg { transition: transform 0.2s ease; }
+.nav-btn:hover svg { transform: translateX(2px); }
 
-.nav-btn:hover svg {
-    transform: translateX(2px);
-}
-
-/* ========================================
-   TELA DE CONCLUSAO
-   ======================================== */
 .success-actions {
     display: flex;
     flex-direction: column;
@@ -601,100 +512,6 @@ input, select, textarea {
     border-color: var(--border-medium);
 }
 
-/* Video CTA */
-.video-cta {
-    margin: 24px 0;
-}
-
-.video-card {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px;
-    background: var(--bg-card);
-    border: 2px solid var(--border-light);
-    border-radius: 16px;
-    transition: var(--transition-fast);
-    cursor: pointer;
-}
-
-.video-card:hover {
-    border-color: var(--purple-primary);
-    transform: translateY(-4px);
-    box-shadow: 0 16px 48px rgba(113, 48, 230, 0.1);
-}
-
-.video-thumbnail {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--bg-elevated) 100%);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.video-play {
-    width: 64px;
-    height: 64px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--purple-primary);
-    transition: var(--transition-fast);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.video-card:hover .video-play {
-    transform: scale(1.1);
-    background: #fff;
-}
-
-.video-overlay {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    padding: 4px 10px;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #fff;
-}
-
-.video-info {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.video-tag {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--purple-light);
-}
-
-.video-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    line-height: 1.4;
-}
-
-.video-author {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-}
-
-/* ========================================
-   MODAL
-   ======================================== */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -736,10 +553,8 @@ input, select, textarea {
 
 .modal-close {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 36px;
-    height: 36px;
+    top: 16px; right: 16px;
+    width: 36px; height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -756,9 +571,7 @@ input, select, textarea {
     color: var(--text-primary);
 }
 
-.modal-header {
-    margin-bottom: 24px;
-}
+.modal-header { margin-bottom: 24px; }
 
 .modal-header h3 {
     font-size: 1.25rem;
@@ -779,21 +592,12 @@ input, select, textarea {
     margin: 20px 0 8px;
 }
 
-.modal-body p {
-    margin-bottom: 12px;
-}
+.modal-body p { margin-bottom: 12px; }
+.modal-body strong { color: var(--text-primary); }
 
-.modal-body strong {
-    color: var(--text-primary);
-}
-
-/* ========================================
-   TOAST
-   ======================================== */
 .toast {
     position: fixed;
-    bottom: 100px;
-    left: 50%;
+    bottom: 100px; left: 50%;
     transform: translateX(-50%) translateY(20px);
     z-index: 200;
     padding: 14px 28px;
@@ -816,10 +620,6 @@ input, select, textarea {
     transform: translateX(-50%) translateY(0);
 }
 
-
-/* ========================================
-   SUCCESS MESSAGE (tela final)
-   ======================================== */
 .success-message {
     display: flex;
     flex-direction: column;
@@ -839,10 +639,7 @@ input, select, textarea {
     box-shadow: 0 8px 32px rgba(113, 48, 230, 0.1);
 }
 
-.success-icon {
-    font-size: 2.5rem;
-    line-height: 1;
-}
+.success-icon { font-size: 2.5rem; line-height: 1; }
 
 .success-text {
     font-size: 1rem;
@@ -851,10 +648,7 @@ input, select, textarea {
     max-width: 480px;
 }
 
-.success-text strong {
-    color: var(--purple-light);
-    font-weight: 600;
-}
+.success-text strong { color: var(--purple-light); font-weight: 600; }
 
 .success-note {
     font-size: 0.875rem;
@@ -862,7 +656,6 @@ input, select, textarea {
     font-weight: 500;
 }
 
-/* Ajuste nos success-actions para centralizar */
 .success-actions {
     display: flex;
     flex-direction: column;
@@ -871,9 +664,6 @@ input, select, textarea {
     align-items: center;
 }
 
-/* ========================================
-   GATE SCREEN (tela inicial)
-   ======================================== */
 .gate-screen {
     position: fixed;
     inset: 0;
@@ -904,8 +694,7 @@ input, select, textarea {
 }
 
 .gate-logo img {
-    width: 120px;
-    height: 120px;
+    width: 120px; height: 120px;
     object-fit: contain;
     filter: drop-shadow(0 0 40px rgba(113, 48, 230, 0.4));
     animation: gateLogoFloat 3s ease-in-out infinite;
@@ -965,13 +754,8 @@ input, select, textarea {
     box-shadow: 0 8px 32px rgba(113, 48, 230, 0.4);
 }
 
-.gate-btn--primary svg {
-    transition: transform 0.2s ease;
-}
-
-.gate-btn--primary:hover svg {
-    transform: translateX(4px);
-}
+.gate-btn--primary svg { transition: transform 0.2s ease; }
+.gate-btn--primary:hover svg { transform: translateX(4px); }
 
 .gate-btn--ghost {
     background: transparent;
@@ -990,130 +774,45 @@ input, select, textarea {
     50% { transform: translateY(-8px); }
 }
 
-/* Transicao do form container */
 #formContainer {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ========================================
-   RESPONSIVE
-   ======================================== */
 @media (max-width: 480px) {
-    .gate-logo img {
-        width: 100px;
-        height: 100px;
-    }
-
-    .gate-logo span {
-        font-size: 2rem;
-    }
-
-    .gate-tagline {
-        font-size: 0.875rem;
-    }
-
-    .gate-btn {
-        padding: 16px 24px;
-        font-size: 0.9375rem;
-    }
-
-    .form-container {
-        padding: 130px 16px 100px;
-    }
-
-    .form-header {
-        padding: 16px 16px;
-    }
-
-    .progress-wrapper {
-        top: 72px;
-        padding: 0 16px;
-    }
-
-    .step-title {
-        font-size: 1.25rem;
-    }
-
-    .option-content {
-        padding: 14px 16px;
-    }
-
-    .option-icon {
-        width: 36px;
-        height: 36px;
-        min-width: 36px;
-        font-size: 1rem;
-    }
-
-    .option-label {
-        font-size: 0.875rem;
-    }
-
-    .input-wrapper input {
-        padding: 16px 18px;
-        font-size: 0.9375rem;
-    }
-
-    .input-wrapper input[name="whatsapp"] {
-        padding-left: 58px;
-    }
-
-    .form-nav {
-        padding: 16px;
-    }
-
-    .nav-btn {
-        padding: 12px 20px;
-        font-size: 0.875rem;
-    }
-
-    .btn {
-        padding: 14px 20px;
-        font-size: 0.9375rem;
-    }
-
-    .modal {
-        padding: 24px 20px;
-        border-radius: 16px;
-    }
-
-    .video-card {
-        padding: 16px;
-    }
+    .gate-logo img { width: 100px; height: 100px; }
+    .gate-logo span { font-size: 2rem; }
+    .gate-tagline { font-size: 0.875rem; }
+    .gate-btn { padding: 16px 24px; font-size: 0.9375rem; }
+    .form-container { padding: 130px 16px 100px; }
+    .form-header { padding: 16px 16px; }
+    .progress-wrapper { top: 72px; padding: 0 16px; }
+    .step-title { font-size: 1.25rem; }
+    .option-content { padding: 14px 16px; }
+    .option-icon { width: 36px; height: 36px; min-width: 36px; font-size: 1rem; }
+    .option-label { font-size: 0.875rem; }
+    .input-wrapper input { padding: 16px 18px; font-size: 0.9375rem; }
+    .input-wrapper input[name="whatsapp"] { padding-left: 58px; }
+    .form-nav { padding: 16px; }
+    .nav-btn { padding: 12px 20px; font-size: 0.875rem; }
+    .btn { padding: 14px 20px; font-size: 0.9375rem; }
+    .modal { padding: 24px 20px; border-radius: 16px; }
 }
 
 @media (max-width: 360px) {
-    .step-title {
-        font-size: 1.125rem;
-    }
-
-    .option-content {
-        padding: 12px 14px;
-        gap: 10px;
-    }
-
-    .option-icon {
-        width: 32px;
-        height: 32px;
-        min-width: 32px;
-    }
+    .step-title { font-size: 1.125rem; }
+    .option-content { padding: 12px 14px; gap: 10px; }
+    .option-icon { width: 32px; height: 32px; min-width: 32px; }
 }
 
-/* ========================================
-   ACCESSIBILITY
-   ======================================== */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-
-    .step {
-        transition: none;
-    }
+    .step { transition: none; }
 }
 
 *:focus-visible {
@@ -1126,26 +825,11 @@ input, select, textarea {
     color: var(--text-primary);
 }
 
-::-webkit-scrollbar {
-    width: 6px;
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--border-medium); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-::-webkit-scrollbar-track {
-    background: var(--bg-base);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--border-medium);
-    border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
-}
-
-/* ========================================
-   ANIMATIONS EXTRAS
-   ======================================== */
 @keyframes pulse-glow {
     0%, 100% { box-shadow: 0 0 20px var(--purple-glow); }
     50% { box-shadow: 0 0 40px var(--purple-glow); }
@@ -1155,7 +839,6 @@ input, select, textarea {
     animation: pulse-glow 2s infinite;
 }
 
-/* Shake animation for error */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     20% { transform: translateX(-8px); }
@@ -1164,11 +847,8 @@ input, select, textarea {
     80% { transform: translateX(4px); }
 }
 
-.shake {
-    animation: shake 0.4s ease-in-out;
-}
+.shake { animation: shake 0.4s ease-in-out; }
 
-/* Success glow */
 @keyframes successPulse {
     0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
     70% { box-shadow: 0 0 0 20px rgba(34, 197, 94, 0); }

@@ -243,7 +243,6 @@
 
         const inputs = step.querySelectorAll('input[name], select[name], textarea[name]');
 
-        // Limpa arrays de checkbox deste step antes de repopular
         inputs.forEach(input => {
             if (input.type === 'checkbox') {
                 formData[input.name] = [];
@@ -380,54 +379,36 @@
     }
 
     // ========================================
-    // CORRECAO DEFINITIVA DOS CARDS
+    // ABORDAGEM NATIVA: o navegador controla o input
+    // O JS apenas observa e reage
     // ========================================
     function initOptionCards() {
-        document.querySelectorAll('.option-card').forEach(function(card) {
+        // Para cada step de multipla escolha (4-9) e escolha unica (10-12)
+        document.querySelectorAll('.step').forEach(function(step) {
+            const stepNum = parseInt(step.dataset.step);
+            if (stepNum < 4 || stepNum > 12) return;
 
-            // Handler unificado para clique no card
-            card.addEventListener('click', function(e) {
-                // Ignora cliques em links
-                if (e.target.tagName === 'A') return;
+            const inputs = step.querySelectorAll('input[type="checkbox"], input[type="radio"]');
 
-                const input = this.querySelector('input');
-                if (!input) return;
+            inputs.forEach(function(input) {
+                // Quando o input muda (marcado/desmarcado pelo navegador)
+                input.addEventListener('change', function() {
+                    // Salva dados deste step
+                    saveStepData(stepNum);
+                    // Limpa erro visual
+                    clearStepError(stepNum);
 
-                // COM pointer-events: none no CSS, o input NUNCA recebe clique direto.
-                // Entao todo clique aqui eh no card. Basta toggle o input e pronto.
-
-                if (input.type === 'checkbox') {
-                    input.checked = !input.checked;
-                } else if (input.type === 'radio') {
-                    input.checked = true;
-                }
-
-                // Dispara change para CSS atualizar (borda roxa, etc)
-                input.dispatchEvent(new Event('change'));
-
-                // Salva dados e limpa erro imediatamente
-                saveStepData(currentStep);
-                clearStepError(currentStep);
-
-                // Auto-avanca em radio buttons
-                if (input.type === 'radio') {
-                    setTimeout(function() {
-                        if (currentStep === 12) {
-                            submitForm();
-                        } else {
-                            nextStep();
-                        }
-                    }, 400);
-                }
-            });
-
-            // Teclado: Enter/Space no card
-            card.setAttribute('tabindex', '0');
-            card.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
-                }
+                    // Se for radio, auto-avanca apos breve delay
+                    if (input.type === 'radio' && input.checked) {
+                        setTimeout(function() {
+                            if (stepNum === 12) {
+                                submitForm();
+                            } else {
+                                nextStep();
+                            }
+                        }, 400);
+                    }
+                });
             });
         });
 
