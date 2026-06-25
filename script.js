@@ -1,41 +1,24 @@
 /* ========================================
    ELABORE - FORMULARIO ORGANICO
-   Script de navegacao por steps
-   Uma pergunta por vez com barra de progresso
    ======================================== */
 
 (function() {
     'use strict';
 
-    // ========================================
-    // CONFIGURACAO
-    // ========================================
-    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwX2l3waQQf82VKiTVQ9AO7_ePqr_B86UIp6xdiQD4kJlxnYeNnLlnBRFfgamDRRHSu/exec';
-    const TOTAL_STEPS = 12; // 12 perguntas, step 13 e a tela final
-    const VIDEO_URL = 'https://www.youtube.com/watch?v=SEU_VIDEO_AQUI';
+    const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxNTB3Lpk5v3JBE0eMcJfXe5n8o8Im1St8hA1Yxa1NJZx68E7FSurcPEVVpHV2rFVlj/exec';
+    const TOTAL_STEPS = 12;
 
-    // ========================================
-    // ESTADO
-    // ========================================
     let currentStep = 1;
     let formData = {};
     let isAnimating = false;
 
-    // ========================================
-    // ELEMENTOS DOM
-    // ========================================
     const progressFill = document.getElementById('progressFill');
     const progressText = document.getElementById('progressText');
     const btnPrev = document.getElementById('btnPrev');
     const btnNext = document.getElementById('btnNext');
     const btnSubmit = document.getElementById('btnSubmit');
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toastMessage');
     const formNav = document.getElementById('formNav');
 
-    // ========================================
-    // INICIALIZACAO
-    // ========================================
     document.addEventListener('DOMContentLoaded', function() {
         initProgress();
         initNavigation();
@@ -45,9 +28,6 @@
         updateUI();
     });
 
-    // ========================================
-    // PROGRESS BAR
-    // ========================================
     function initProgress() {
         updateProgress();
     }
@@ -63,18 +43,12 @@
         }
     }
 
-    // ========================================
-    // NAVEGACAO
-    // ========================================
     function initNavigation() {
         btnPrev.addEventListener('click', prevStep);
         btnNext.addEventListener('click', nextStep);
         btnSubmit.addEventListener('click', submitForm);
     }
 
-    // ========================================
-    // VALIDACAO DE CADA STEP
-    // ========================================
     function validateStep(stepNum) {
         const step = document.querySelector('.step[data-step="' + stepNum + '"]');
         if (!step) return false;
@@ -83,7 +57,6 @@
         let isValid = true;
         let errorMsg = '';
 
-        // Step 1: Nome completo (text)
         if (stepNum === 1) {
             const input = step.querySelector('input[name="nome_completo"]');
             const value = input.value.trim();
@@ -95,8 +68,6 @@
                 input.classList.remove('error');
             }
         }
-
-        // Step 2: Instagram (text)
         else if (stepNum === 2) {
             const input = step.querySelector('input[name="instagram"]');
             const value = input.value.trim();
@@ -108,8 +79,6 @@
                 input.classList.remove('error');
             }
         }
-
-        // Step 3: WhatsApp (tel)
         else if (stepNum === 3) {
             const input = step.querySelector('input[name="whatsapp"]');
             const value = input.value.replace(/\D/g, '');
@@ -121,8 +90,6 @@
                 input.classList.remove('error');
             }
         }
-
-        // Steps 4 a 9: Checkbox (multipla escolha)
         else if (stepNum >= 4 && stepNum <= 9) {
             const checkboxes = step.querySelectorAll('input[type="checkbox"]:checked');
             if (checkboxes.length === 0) {
@@ -130,8 +97,6 @@
                 errorMsg = 'Selecione uma ou mais opcoes';
             }
         }
-
-        // Steps 10 a 12: Radio (escolha unica)
         else if (stepNum >= 10 && stepNum <= 12) {
             const selected = step.querySelector('input[type="radio"]:checked');
             if (!selected) {
@@ -140,7 +105,6 @@
             }
         }
 
-        // Atualiza hint
         if (hint) {
             if (!isValid) {
                 hint.textContent = errorMsg;
@@ -173,12 +137,8 @@
         return hints[stepNum] || '';
     }
 
-    // ========================================
-    // AVANCAR / VOLTAR
-    // ========================================
     window.nextStep = function() {
         if (isAnimating) return;
-
         if (!validateStep(currentStep)) {
             const currentStepEl = document.querySelector('.step[data-step="' + currentStep + '"]');
             if (currentStepEl) {
@@ -188,7 +148,6 @@
             return;
         }
 
-        // Salva dados do step atual
         saveStepData(currentStep);
 
         if (currentStep >= TOTAL_STEPS) return;
@@ -213,7 +172,6 @@
                     nextEl.classList.remove('slide-in-right');
                     isAnimating = false;
 
-                    // Focus no primeiro input do novo step
                     const firstInput = nextEl.querySelector('input, select, textarea');
                     if (firstInput && currentStep !== 13) {
                         setTimeout(() => firstInput.focus(), 300);
@@ -225,7 +183,6 @@
 
     window.prevStep = function() {
         if (isAnimating || currentStep <= 1) return;
-
         isAnimating = true;
 
         const currentEl = document.querySelector('.step[data-step="' + currentStep + '"]');
@@ -254,24 +211,17 @@
         }
     };
 
-    // ========================================
-    // ATUALIZAR UI (botoes, visibilidade)
-    // ========================================
     function updateUI() {
-        // Botao anterior
         if (currentStep === 1) {
             btnPrev.classList.add('hidden');
         } else {
             btnPrev.classList.remove('hidden');
         }
 
-        // Botao proximo / enviar
         if (currentStep === 12) {
-            // Ultima pergunta: mostra botao Enviar
             btnNext.style.display = 'none';
             btnSubmit.style.display = 'inline-flex';
         } else if (currentStep === 13) {
-            // Tela final: esconde navegacao
             formNav.style.display = 'none';
             progressText.textContent = 'Concluido!';
             progressFill.style.width = '100%';
@@ -280,7 +230,6 @@
             btnSubmit.style.display = 'none';
         }
 
-        // Atualiza texto do botao next no penultimo step
         if (currentStep === 11) {
             btnNext.innerHTML = 'Quase la <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>';
         } else {
@@ -289,25 +238,30 @@
     }
 
     // ========================================
-    // SALVAR DADOS DO STEP
+    // CORRECAO PRINCIPAL AQUI
     // ========================================
     function saveStepData(stepNum) {
         const step = document.querySelector('.step[data-step="' + stepNum + '"]');
         if (!step) return;
 
         const inputs = step.querySelectorAll('input[name], select[name], textarea[name]');
+        
+        // Para checkboxes: limpa o array deste step antes de repopular
+        // para evitar acumulo de lixo quando o usuario volta e muda a resposta
+        inputs.forEach(input => {
+            if (input.type === 'checkbox') {
+                formData[input.name] = [];
+            }
+        });
+
         inputs.forEach(input => {
             if (input.type === 'radio') {
                 if (input.checked) {
                     formData[input.name] = input.value;
                 }
             } else if (input.type === 'checkbox') {
-                // Para checkboxes, acumula valores em array
-                if (!formData[input.name]) formData[input.name] = [];
                 if (input.checked) {
-                    if (!formData[input.name].includes(input.value)) {
-                        formData[input.name].push(input.value);
-                    }
+                    formData[input.name].push(input.value);
                 }
             } else {
                 formData[input.name] = input.value.trim();
@@ -315,9 +269,6 @@
         });
     }
 
-    // ========================================
-    // SUBMIT FORM
-    // ========================================
     window.submitForm = function() {
         if (isAnimating) return;
 
@@ -330,10 +281,8 @@
             return;
         }
 
-        // Salva dados finais
         saveStepData(currentStep);
 
-        // Prepara dados para envio
         const payload = {
             ...formData,
             source: 'formulario_organico',
@@ -342,14 +291,14 @@
             userAgent: navigator.userAgent
         };
 
-        // Desabilita botao
+        // DEBUG: veja no console do navegador (F12) se todos os dados estao aqui
+        console.log('Payload enviado:', payload);
+
         btnSubmit.disabled = true;
         btnSubmit.innerHTML = '<span>Enviando...</span>';
 
-        // Envia para Google Sheets
         sendToGoogleSheets(payload);
 
-        // Avanca para tela de sucesso (step 13)
         isAnimating = true;
 
         const currentEl = document.querySelector('.step[data-step="' + currentStep + '"]');
@@ -373,9 +322,6 @@
         }
     };
 
-    // ========================================
-    // ENVIAR PARA GOOGLE SHEETS
-    // ========================================
     function sendToGoogleSheets(data) {
         if (!GOOGLE_SHEETS_URL) {
             console.log('Modo simulacao - dados:', data);
@@ -391,27 +337,21 @@
         })
         .then(response => response.json())
         .then(result => {
-            console.log('Sucesso:', result);
+            console.log('Resposta do servidor:', result);
         })
         .catch(error => {
             console.error('Erro ao enviar:', error);
         });
     }
 
-    // ========================================
-    // MASCARA DE TELEFONE
-    // ========================================
     function initPhoneMask() {
         const phoneInput = document.getElementById('whatsapp');
         if (!phoneInput) return;
 
         phoneInput.addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
-
-            // Limita a 11 digitos
             if (value.length > 11) value = value.slice(0, 11);
 
-            // Aplica mascara
             if (value.length >= 2) {
                 value = '(' + value.slice(0, 2) + ') ' + value.slice(2);
             }
@@ -426,15 +366,10 @@
         });
     }
 
-    // ========================================
-    // NAVEGACAO POR TECLADO
-    // ========================================
     function initKeyboardNav() {
         document.addEventListener('keydown', function(e) {
-            // Enter avanca (exceto em checkboxes e na tela final)
             if (e.key === 'Enter' && currentStep !== 13) {
                 const activeEl = document.activeElement;
-                // Nao intercepta Enter em textareas
                 if (activeEl && activeEl.tagName === 'TEXTAREA') return;
                 e.preventDefault();
                 if (currentStep === 12) {
@@ -443,49 +378,42 @@
                     nextStep();
                 }
             }
-
-            // Escape fecha modal
             if (e.key === 'Escape') {
                 closePrivacyModal();
             }
         });
     }
 
-    // ========================================
-    // INTERACAO COM OPTION CARDS
-    // ========================================
     function initOptionCards() {
-        // Permite clicar no card inteiro para selecionar
         document.querySelectorAll('.option-card').forEach(card => {
             card.addEventListener('click', function(e) {
-                // Nao propaga se clicou no link de politica
                 if (e.target.tagName === 'A') return;
 
                 const input = this.querySelector('input');
-                if (input) {
-                    if (input.type === 'checkbox') {
-                        input.checked = !input.checked;
-                    } else {
-                        input.checked = true;
-                    }
+                if (!input) return;
 
-                    // Dispara change para atualizar estilos
-                    input.dispatchEvent(new Event('change'));
+                // Se o clique foi diretamente no input, nao faz nada (evita duplo toggle)
+                if (e.target === input) return;
 
-                    // Auto-avanca apos 400ms em radio buttons
-                    if (input.type === 'radio') {
-                        setTimeout(() => {
-                            if (currentStep === 12) {
-                                submitForm();
-                            } else {
-                                nextStep();
-                            }
-                        }, 400);
-                    }
+                if (input.type === 'checkbox') {
+                    input.checked = !input.checked;
+                } else {
+                    input.checked = true;
+                }
+
+                input.dispatchEvent(new Event('change'));
+
+                if (input.type === 'radio') {
+                    setTimeout(() => {
+                        if (currentStep === 12) {
+                            submitForm();
+                        } else {
+                            nextStep();
+                        }
+                    }, 400);
                 }
             });
 
-            // Suporte a navegacao por teclado
             card.setAttribute('tabindex', '0');
             card.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -495,7 +423,6 @@
             });
         });
 
-        // Remove erro ao interagir com input
         document.querySelectorAll('.step input').forEach(input => {
             input.addEventListener('input', function() {
                 this.classList.remove('error');
@@ -510,23 +437,6 @@
         });
     }
 
-    // ========================================
-    // TOAST
-    // ========================================
-    function showToast(message) {
-        toastMessage.textContent = message;
-        toast.classList.add('show');
-
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 4000);
-    }
-
-    window.showToast = showToast;
-
-    // ========================================
-    // MODAL POLITICA DE PRIVACIDADE
-    // ========================================
     window.showPrivacyModal = function(e) {
         if (e) e.preventDefault();
         const overlay = document.getElementById('privacyModal');
@@ -544,7 +454,6 @@
         }
     };
 
-    // Fecha modal ao clicar fora
     document.addEventListener('click', function(e) {
         const overlay = document.getElementById('privacyModal');
         if (e.target === overlay) {
@@ -552,9 +461,6 @@
         }
     });
 
-    // ========================================
-    // GATE SCREEN FUNCTIONS
-    // ========================================
     window.enterForm = function() {
         const gate = document.getElementById('gateScreen');
         const formContainer = document.getElementById('formContainer');
@@ -579,9 +485,6 @@
         window.location.href = 'https://elaboreagencia.com.br/';
     };
 
-    // ========================================
-    // PREFERS REDUCED MOTION
-    // ========================================
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.querySelectorAll('.step').forEach(step => {
             step.style.transition = 'none';
