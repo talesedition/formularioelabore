@@ -90,18 +90,21 @@
                 input.classList.remove('error');
             }
         }
-        else if (stepNum >= 4 && stepNum <= 9) {
-            const checkboxes = step.querySelectorAll('input[type="checkbox"]:checked');
-            if (checkboxes.length === 0) {
-                isValid = false;
-                errorMsg = 'Selecione uma ou mais opcoes';
-            }
-        }
-        else if (stepNum >= 10 && stepNum <= 12) {
-            const selected = step.querySelector('input[type="radio"]:checked');
-            if (!selected) {
-                isValid = false;
-                errorMsg = 'Selecione uma opcao para continuar';
+        else if (stepNum >= 4 && stepNum <= 12) {
+            // Steps 4,5,6,9,10,11,12 = radio (unica escolha)
+            // Steps 7,8 = checkbox (multipla escolha)
+            if (stepNum === 7 || stepNum === 8) {
+                const checkboxes = step.querySelectorAll('input[type="checkbox"]:checked');
+                if (checkboxes.length === 0) {
+                    isValid = false;
+                    errorMsg = 'Selecione uma ou mais opcoes';
+                }
+            } else {
+                const selected = step.querySelector('input[type="radio"]:checked');
+                if (!selected) {
+                    isValid = false;
+                    errorMsg = 'Selecione uma opcao para continuar';
+                }
             }
         }
 
@@ -123,12 +126,12 @@
             1: 'Preencha seu nome para continuar',
             2: 'Informe o @ do Instagram da sua empresa',
             3: 'Digite com DDD',
-            4: 'Selecione uma ou mais opcoes',
-            5: 'Selecione uma ou mais opcoes',
-            6: 'Selecione uma ou mais opcoes',
+            4: 'Selecione uma opcao para continuar',
+            5: 'Selecione uma opcao para continuar',
+            6: 'Selecione uma opcao para continuar',
             7: 'Selecione uma ou mais opcoes',
             8: 'Selecione uma ou mais opcoes',
-            9: 'Selecione uma ou mais opcoes',
+            9: 'Selecione uma opcao para continuar',
             10: 'Selecione uma opcao para continuar',
             11: 'Selecione uma opcao para continuar',
             12: 'Selecione uma opcao para continuar',
@@ -380,10 +383,10 @@
 
     // ========================================
     // ABORDAGEM NATIVA: o navegador controla o input
-    // O JS apenas observa e reage
+    // O JS apenas observa e reage (SEM auto-avanco)
     // ========================================
     function initOptionCards() {
-        // Para cada step de multipla escolha (4-9) e escolha unica (10-12)
+        // Para cada step de multipla escolha (7-8) e escolha unica (4-6, 9-12)
         document.querySelectorAll('.step').forEach(function(step) {
             const stepNum = parseInt(step.dataset.step);
             if (stepNum < 4 || stepNum > 12) return;
@@ -397,17 +400,7 @@
                     saveStepData(stepNum);
                     // Limpa erro visual
                     clearStepError(stepNum);
-
-                    // Se for radio, auto-avanca apos breve delay
-                    if (input.type === 'radio' && input.checked) {
-                        setTimeout(function() {
-                            if (stepNum === 12) {
-                                submitForm();
-                            } else {
-                                nextStep();
-                            }
-                        }, 400);
-                    }
+                    // NAO faz auto-avanco - o lead deve clicar em "Continuar"
                 });
             });
         });

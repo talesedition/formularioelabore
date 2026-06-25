@@ -257,7 +257,7 @@ input, select, textarea { font-family: inherit; font-size: inherit; color: inher
     margin: 0;
 }
 
-/* Input escondido — o label aciona via comportamento nativo HTML */
+/* Input escondido - o label aciona via comportamento nativo HTML */
 .option-card input {
     position: absolute;
     opacity: 0;

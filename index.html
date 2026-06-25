@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elabore | Diagnostico Organico Gratuito</title>
+    <title>Elabore | Diagnóstico Estratégico de Crescimento</title>
     <meta name="description" content="Responda algumas perguntas e receba um diagnostico estrategico gratuito da sua presenca digital.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
+<base target="_blank">
 <base target="_blank">
 <base target="_blank">
 </head>
@@ -39,14 +40,14 @@
                 <img src="https://elaboreagencia.com.br/img/logo_elabore_roxo.png" alt="Elabore">
                 <span>elabore</span>
             </div>
-            <p class="gate-tagline">Diagnostico Organico Gratuito</p>
+            <p class="gate-tagline">Diagnóstico Estratégico de Crescimento</p>
             <div class="gate-options">
                 <button type="button" class="gate-btn gate-btn--primary" onclick="enterForm()">
-                    <span>Continuar analise</span>
+                    <span>Continuar análise</span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
                 </button>
                 <button type="button" class="gate-btn gate-btn--ghost" onclick="exitForm()">
-                    <span>Sair da analise</span>
+                    <span>Sair da análise</span>
                 </button>
             </div>
         </div>
@@ -90,220 +91,220 @@
                 <p class="step-hint">Digite com DDD</p>
             </div>
 
-            <!-- PERGUNTA 4: Descreve voce (multipla escolha) -->
+            <!-- PERGUNTA 4: Descreve voce (escolha unica) -->
             <div class="step" data-step="4">
                 <div class="step-badge">04</div>
                 <h2 class="step-title">Qual destas opcoes melhor descreve voce?</h2>
                 <div class="options-grid options-grid--vertical">
                     <label class="option-card">
-                        <input type="checkbox" name="descreve_voce" value="dono_empresa">
+                        <input type="radio" name="descreve_voce" value="dono_empresa" required>
                         <div class="option-content">
                             <span class="option-icon">👔</span>
                             <span class="option-label">Sou dono(a) de empresa</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="descreve_voce" value="socio">
+                        <input type="radio" name="descreve_voce" value="socio">
                         <div class="option-content">
                             <span class="option-icon">🤝</span>
                             <span class="option-label">Sou socio(a)</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="descreve_voce" value="gestor">
+                        <input type="radio" name="descreve_voce" value="gestor">
                         <div class="option-content">
                             <span class="option-icon">📋</span>
                             <span class="option-label">Sou gestor(a)</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="descreve_voce" value="autonomo">
+                        <input type="radio" name="descreve_voce" value="autonomo">
                         <div class="option-content">
                             <span class="option-icon">💼</span>
                             <span class="option-label">Sou profissional autonomo</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="descreve_voce" value="comecando">
+                        <input type="radio" name="descreve_voce" value="comecando">
                         <div class="option-content">
                             <span class="option-icon">🌱</span>
                             <span class="option-label">Estou comecando meu negocio</span>
                         </div>
                     </label>
                 </div>
-                <p class="step-hint">Selecione uma ou mais opcoes</p>
+                <p class="step-hint">Selecione uma opcao para continuar</p>
             </div>
 
-            <!-- PERGUNTA 5: Segmento (multipla escolha) -->
+            <!-- PERGUNTA 5: Segmento (escolha unica) -->
             <div class="step" data-step="5">
                 <div class="step-badge">05</div>
                 <h2 class="step-title">Qual e o segmento do seu negocio?</h2>
                 <div class="options-grid options-grid--vertical">
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="clinica_consultorio">
+                        <input type="radio" name="segmento" value="clinica_consultorio" required>
                         <div class="option-content">
                             <span class="option-icon">🏥</span>
                             <span class="option-label">Clinica ou consultorio</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="estetica_beleza">
+                        <input type="radio" name="segmento" value="estetica_beleza">
                         <div class="option-content">
                             <span class="option-icon">💅</span>
                             <span class="option-label">Estetica e beleza</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="hotel_pousada">
+                        <input type="radio" name="segmento" value="hotel_pousada">
                         <div class="option-content">
                             <span class="option-icon">🏨</span>
                             <span class="option-label">Hotel ou pousada</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="restaurante_cafeteria">
+                        <input type="radio" name="segmento" value="restaurante_cafeteria">
                         <div class="option-content">
                             <span class="option-icon">🍽️</span>
                             <span class="option-label">Restaurante ou cafeteria</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="loja_fisica">
+                        <input type="radio" name="segmento" value="loja_fisica">
                         <div class="option-content">
                             <span class="option-icon">🏬</span>
                             <span class="option-label">Loja fisica</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="loja_online">
+                        <input type="radio" name="segmento" value="loja_online">
                         <div class="option-content">
                             <span class="option-icon">🛒</span>
                             <span class="option-label">Loja online (e-commerce)</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="construcao_civil">
+                        <input type="radio" name="segmento" value="construcao_civil">
                         <div class="option-content">
                             <span class="option-icon">🏗️</span>
                             <span class="option-label">Construcao civil</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="imobiliaria">
+                        <input type="radio" name="segmento" value="imobiliaria">
                         <div class="option-content">
                             <span class="option-icon">🏠</span>
                             <span class="option-label">Imobiliaria</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="academia">
+                        <input type="radio" name="segmento" value="academia">
                         <div class="option-content">
                             <span class="option-icon">💪</span>
                             <span class="option-label">Academia</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="educacao">
+                        <input type="radio" name="segmento" value="educacao">
                         <div class="option-content">
                             <span class="option-icon">🎓</span>
                             <span class="option-label">Educacao</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="tecnologia">
+                        <input type="radio" name="segmento" value="tecnologia">
                         <div class="option-content">
                             <span class="option-icon">💻</span>
                             <span class="option-label">Tecnologia</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="prestacao_servicos">
+                        <input type="radio" name="segmento" value="prestacao_servicos">
                         <div class="option-content">
                             <span class="option-icon">🔧</span>
                             <span class="option-label">Prestacao de servicos</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="industria">
+                        <input type="radio" name="segmento" value="industria">
                         <div class="option-content">
                             <span class="option-icon">🏭</span>
                             <span class="option-label">Industria</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="segmento" value="outro">
+                        <input type="radio" name="segmento" value="outro">
                         <div class="option-content">
                             <span class="option-icon">✏️</span>
                             <span class="option-label">Outro segmento</span>
                         </div>
                     </label>
                 </div>
-                <p class="step-hint">Selecione uma ou mais opcoes</p>
+                <p class="step-hint">Selecione uma opcao para continuar</p>
             </div>
 
-            <!-- PERGUNTA 6: Maior desafio (multipla escolha) -->
+            <!-- PERGUNTA 6: Maior desafio (escolha unica) -->
             <div class="step" data-step="6">
                 <div class="step-badge">06</div>
                 <h2 class="step-title">Hoje, qual e o maior desafio da sua empresa?</h2>
                 <div class="options-grid options-grid--vertical">
                     <label class="option-card">
-                        <input type="checkbox" name="maior_desafio" value="mais_clientes">
+                        <input type="radio" name="maior_desafio" value="mais_clientes" required>
                         <div class="option-content">
                             <span class="option-icon">🎯</span>
                             <span class="option-label">Conseguir mais clientes</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="maior_desafio" value="vender_mais">
+                        <input type="radio" name="maior_desafio" value="vender_mais">
                         <div class="option-content">
                             <span class="option-icon">💰</span>
                             <span class="option-label">Vender mais</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="maior_desafio" value="posicionamento_marca">
+                        <input type="radio" name="maior_desafio" value="posicionamento_marca">
                         <div class="option-content">
                             <span class="option-icon">⭐</span>
                             <span class="option-label">Melhorar o posicionamento da marca</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="maior_desafio" value="organizar_marketing">
+                        <input type="radio" name="maior_desafio" value="organizar_marketing">
                         <div class="option-content">
                             <span class="option-icon">📊</span>
                             <span class="option-label">Organizar o marketing</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="maior_desafio" value="melhorar_atendimento">
+                        <input type="radio" name="maior_desafio" value="melhorar_atendimento">
                         <div class="option-content">
                             <span class="option-icon">🎧</span>
                             <span class="option-label">Melhorar o atendimento</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="maior_desafio" value="automatizar">
+                        <input type="radio" name="maior_desafio" value="automatizar">
                         <div class="option-content">
                             <span class="option-icon">🤖</span>
                             <span class="option-label">Automatizar processos</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="maior_desafio" value="aumentar_faturamento">
+                        <input type="radio" name="maior_desafio" value="aumentar_faturamento">
                         <div class="option-content">
                             <span class="option-icon">📈</span>
                             <span class="option-label">Aumentar o faturamento</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="maior_desafio" value="crescer_redes">
+                        <input type="radio" name="maior_desafio" value="crescer_redes">
                         <div class="option-content">
                             <span class="option-icon">📱</span>
                             <span class="option-label">Crescer nas redes sociais</span>
                         </div>
                     </label>
                 </div>
-                <p class="step-hint">Selecione uma ou mais opcoes</p>
+                <p class="step-hint">Selecione uma opcao para continuar</p>
             </div>
 
             <!-- PERGUNTA 7: Conquista clientes (multipla escolha) -->
@@ -450,48 +451,48 @@
                 <p class="step-hint">Selecione uma ou mais opcoes</p>
             </div>
 
-            <!-- PERGUNTA 9: Momento da empresa (multipla escolha) -->
+            <!-- PERGUNTA 9: Momento da empresa (escolha unica) -->
             <div class="step" data-step="9">
                 <div class="step-badge">09</div>
                 <h2 class="step-title">Em que momento sua empresa esta?</h2>
                 <div class="options-grid options-grid--vertical">
                     <label class="option-card">
-                        <input type="checkbox" name="momento_empresa" value="comecando_agora">
+                        <input type="radio" name="momento_empresa" value="comecando_agora" required>
                         <div class="option-content">
                             <span class="option-icon">🌱</span>
                             <span class="option-label">Estou comecando agora</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="momento_empresa" value="vendo_quero_crescer">
+                        <input type="radio" name="momento_empresa" value="vendo_quero_crescer">
                         <div class="option-content">
                             <span class="option-icon">📈</span>
                             <span class="option-label">Ja vendo, mas quero crescer</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="momento_empresa" value="estagnada">
+                        <input type="radio" name="momento_empresa" value="estagnada">
                         <div class="option-content">
                             <span class="option-icon">⏸️</span>
                             <span class="option-label">Minha empresa esta estagnada</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="momento_empresa" value="crescendo_acelerar">
+                        <input type="radio" name="momento_empresa" value="crescendo_acelerar">
                         <div class="option-content">
                             <span class="option-icon">🚀</span>
                             <span class="option-label">Estou crescendo e quero acelerar</span>
                         </div>
                     </label>
                     <label class="option-card">
-                        <input type="checkbox" name="momento_empresa" value="estruturar">
+                        <input type="radio" name="momento_empresa" value="estruturar">
                         <div class="option-content">
                             <span class="option-icon">🏗️</span>
                             <span class="option-label">Quero estruturar melhor o negocio</span>
                         </div>
                     </label>
                 </div>
-                <p class="step-hint">Selecione uma ou mais opcoes</p>
+                <p class="step-hint">Selecione uma opcao para continuar</p>
             </div>
 
             <!-- PERGUNTA 10: Quando investir (escolha unica) -->
